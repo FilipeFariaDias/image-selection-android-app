@@ -9,14 +9,20 @@ import android.Manifest;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
 import android.opengl.GLSurfaceView;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,32 +95,19 @@ public class MainActivity extends AppCompatActivity {
             //set image to ImageView
             /*mImageView.setImageURI(data.getData());*/
 
-            /*GLSurfaceView gLView;
+            Uri imageUri = data.getData();
 
-            gLView = new MyGLSurfaceView(this);
-            setContentView(gLView);*/
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            Intent intent = new Intent(this, CallGLActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, CallGLActivity.class);
+            startActivity(intent);*/
 
         }
     }
 
-
-
-
-/*
-    private GLSurfaceView gLView;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Create a GLSurfaceView instance and set it
-        // as the ContentView for this Activity.
-        gLView = new MyGLSurfaceView(this);
-        setContentView(gLView);
-    }
-*/
 }
 
